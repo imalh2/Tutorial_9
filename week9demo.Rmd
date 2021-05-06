@@ -71,6 +71,15 @@ property_and_deception_offences %>%
   labs(y = "Incidents Recorded")
 ```
 
+```{r prop-dep-tab}
+property_and_deception_offences %>%
+  kable(caption = "Property and deception offences in Victoria by year") %>%
+  kable_styling(bootstrap_options = "striped")
+```
+
+## Discussion
+
+From Figure \@ref(fig:prop-dep-plot) and Table \@ref(tab:prop-dep-tab), it can be seen that the level of Property and deception offences in Victoria has not changed significantly over the 2010-2019 period; it has stayed relatively stable. This is predicted in the paper by. The plot was produced using the package ggplot2 by @ggplot2.  
 
 \clearpage
 
