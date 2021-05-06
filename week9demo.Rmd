@@ -41,14 +41,25 @@ header-includes:
 
 # Section 2
 
-```{r load packages}
+```{r load-packages}
 library(tidyverse)
 library(kableExtra)
 library(bookdown)
 ```
 
-```{r read in data}
+```{r read-in-data}
 crime_data <- read_csv("Data/Data_Tables_Criminal_Incidents_Visualisation_Year_Ending_December_2019.csv")
+```
+
+```{r filter-aggravated-robbery}
+property_and_deception_offences <- crime_data %>%
+  rename("Offence_Division" = "Offence Division") %>%
+  filter(Offence_Division == "B Property and deception offences") %>%
+  select(Year, "Incidents Recorded") %>%
+  group_by(Year) %>%
+  rename("Incidents_Recorded" = "Incidents Recorded") %>%
+  summarise(n = sum(Incidents_Recorded)) %>%
+  rename("Incidents Recorded" = n)
 ```
 
 
