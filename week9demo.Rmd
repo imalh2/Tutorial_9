@@ -35,22 +35,33 @@ header-includes:
 
 # Section 1
 
-```{r libraries, message=FALSE}
+```{r libraries, message=FALSE, echo = FALSE}
 library(tidyverse)
 library(kableExtra)
 ```
 
-```{r load-data, message=FALSE}
+```{r load-data, message=FALSE, echo = FALSE}
 crime <- read_csv('Data/Data_Tables_Criminal_Incidents_Visualisation_Year_Ending_December_2019.csv')
 ```
 
-```{r table}
+```{r table, echo = FALSE}
 crime %>%
   filter(`Offence Division` == 'A Crimes against the person') %>% 
-  count(Year, name = "Number") %>% 
+  group_by(Year) %>% 
+  summarise(Offences = sum(`Incidents Recorded`)) %>% 
   kable(caption = 'Number of crimes against the person per year')
 ```
 
+```{r figure, fig.cap = 'Crime rates per year', echo = FALSE}
+crime %>%
+  filter(`Offence Division` == 'A Crimes against the person') %>%
+  group_by(Year) %>% 
+  summarise(sums = sum(`Rate per 100,000 population`)) %>% 
+  ggplot(aes(x = Year, y = sums)) +
+  geom_line()
+```
+
+As we can see from table \@(tab:table) and figure \@(fig:figure) and as explained by @brace2009relationship, crime has been on the rise over the years.
 
 \clearpage
 
