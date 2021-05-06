@@ -45,13 +45,14 @@ header-includes:
 library(tidyverse)
 library(kableExtra)
 library(bookdown)
+library(ggplot2)
 ```
 
 ```{r read-in-data}
 crime_data <- read_csv("Data/Data_Tables_Criminal_Incidents_Visualisation_Year_Ending_December_2019.csv")
 ```
 
-```{r filter-aggravated-robbery}
+```{r clean-data}
 property_and_deception_offences <- crime_data %>%
   rename("Offence_Division" = "Offence Division") %>%
   filter(Offence_Division == "B Property and deception offences") %>%
@@ -59,7 +60,15 @@ property_and_deception_offences <- crime_data %>%
   group_by(Year) %>%
   rename("Incidents_Recorded" = "Incidents Recorded") %>%
   summarise(n = sum(Incidents_Recorded)) %>%
-  rename("Incidents Recorded" = n)
+  rename(Incidents_Recorded = n)
+```
+
+```{r prop-dep-plot, fig.cap = "Property and deception offences in Victoria by year"}
+property_and_deception_offences %>%
+  ggplot(aes(x = Year, 
+             y = as.numeric(Incidents_Recorded))) + 
+  geom_bar(stat="identity") +
+  labs(y = "Incidents Recorded")
 ```
 
 
