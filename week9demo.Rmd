@@ -36,9 +36,20 @@ header-includes:
 # Section 1
 
 
+
 \clearpage
 
 # Section 2
+
+```{r load packages}
+library(tidyverse)
+library(kableExtra)
+library(bookdown)
+```
+
+```{r read in data}
+crime_data <- read_csv("Data/Data_Tables_Criminal_Incidents_Visualisation_Year_Ending_December_2019.csv")
+```
 
 
 \clearpage
